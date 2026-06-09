@@ -79,7 +79,7 @@ def main():
         print("[-] \u8bf7\u8bbe\u7f6e GYM_USERNAME \u548c GYM_PASSWORD \u73af\u5883\u53d8\u91cf")
         sys.exit(1)
 
-    target_date = sys.argv[1] if len(sys.argv) > 1 else (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d")
+    target_date = sys.argv[1] if len(sys.argv) > 1 else (datetime.now() + timedelta(days=0)).strftime("%Y-%m-%d")
 
     # \u68c0\u67e5\u5468\u51e0
     dt = datetime.strptime(target_date, "%Y-%m-%d")
