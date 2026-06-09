@@ -9,7 +9,7 @@ BASE_URL = "http://order.njmu.edu.cn:8088/cgyd"
 USERNAME = os.environ.get('GYM_USERNAME', '')
 PASSWORD = os.environ.get('GYM_PASSWORD', '')
 SERVICE_ID = '41'
-COORDINATE_DES = ','.join([f'2_football_\ua0a0{i}' for i in range(1, 31)])
+COORDINATE_DES = ','.join([f'2_football_场地{i}' for i in range(1, 31)])
 
 OPEN_DAYS = {1, 2, 4, 5, 6, 7}
 session = requests.Session()
