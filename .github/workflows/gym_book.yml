@@ -1,27 +1,20 @@
-﻿name: 自动预约健身房
+﻿name: Auto Book Gym
 
 on:
   schedule:
-    # 每天 9:00 (北京时间) = 1:00 UTC
     - cron: '0 1 * * *'
-  workflow_dispatch:  # 也可以在 GitHub 上手动触发
+  workflow_dispatch:
 
 jobs:
   book:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: 设置 Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-
-      - name: 安装依赖
-        run: pip install requests
-
-      - name: 执行预约
-        run: python GymAutoBook/gym_auto_book.py
+      - run: pip install requests
+      - run: python GymAutoBook/gym_auto_book.py
         env:
           TZ: Asia/Shanghai
           GYM_USERNAME: ${{ secrets.GYM_USERNAME }}
