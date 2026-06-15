@@ -71,7 +71,7 @@ def find_slots(session: requests.Session, date_str: str) -> list[dict]:
         timeout=15,
     )
     resp.raise_for_status()
-    items = resp.json().get("object", [])
+    items = resp.json().get("object") or []
     return [
         item for item in items
         if item.get("stock", {}).get("time_no") == TARGET_TIME_SLOT
