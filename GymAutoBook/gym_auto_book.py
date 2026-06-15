@@ -5,6 +5,8 @@ Gym Auto Book - Zi Dong Yu Yue Jian Shen Fang
 import json
 import os
 import sys
+import random
+import time
 import logging
 from datetime import datetime, timedelta
 
@@ -24,9 +26,16 @@ logging.basicConfig(
 log = logging.getLogger(__name__)
 
 
+def _random_delay(min_sec: float = 1.0, max_sec: float = 4.0):
+    """Simulate human reading/browsing delay."""
+    delay = random.uniform(min_sec, max_sec)
+    log.debug("Waiting %.1fs...", delay)
+    time.sleep(delay)
+
+
 def _create_session() -> requests.Session:
     session = requests.Session()
-    session.headers.update({"User-Agent": "Mozilla/5.0"})
+    session.headers.update({"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"})
     return session
 
 
@@ -64,7 +73,7 @@ def login() -> requests.Session | None:
     retry=retry_if_exception_type((requests.RequestException, json.JSONDecodeError)),
 )
 def find_slots(session: requests.Session, date_str: str) -> list[dict]:
-    session.get(f"{BASE_URL}/product/show.html?id={SERVICE_ID}", timeout=15)
+    _random_delay(1.0, 3.0)
     resp = session.get(
         f"{BASE_URL}/product/findOkArea.html",
         params={"s_date": date_str, "serviceid": SERVICE_ID},
@@ -84,6 +93,7 @@ def find_slots(session: requests.Session, date_str: str) -> list[dict]:
     retry=retry_if_exception_type((requests.RequestException, json.JSONDecodeError)),
 )
 def book(session: requests.Session, slot: dict) -> bool:
+    _random_delay(1.5, 5.0)
     model = {
         "stockdetail": {str(slot["stockid"]): str(slot["id"])},
         "serviceid": SERVICE_ID,
