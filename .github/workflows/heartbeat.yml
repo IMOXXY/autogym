@@ -1,0 +1,18 @@
+name: Heartbeat - Trigger Booking
+
+on:
+  schedule:
+    - cron: '0 */2 * * *'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          gh workflow run "Auto Book Gym" --repo ${{ github.repository }}
+        env:
+          GH_TOKEN: ${{ github.token }}
