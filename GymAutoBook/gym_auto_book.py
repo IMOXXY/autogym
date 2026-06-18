@@ -16,7 +16,7 @@ from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_excep
 BASE_URL = "http://order.njmu.edu.cn:8088/cgyd"
 SERVICE_ID = "41"
 TARGET_TIME_SLOT = "18:01-19:00"
-OPEN_DAYS = {1, 2, 4, 5}
+OPEN_DAYS = {1, 3, 4, 7}
 
 logging.basicConfig(
     level=logging.INFO,
@@ -106,6 +106,7 @@ def book(session: requests.Session, slot: dict) -> bool:
         data={"param": json.dumps(model), "num": "1", "json": "true"},
         timeout=15,
     )
+    log.debug("Booking HTTP %d, body: %s", resp.status_code, resp.text[:500])
     resp.raise_for_status()
     result = resp.json()
     if result.get("result") == "1":
@@ -177,3 +178,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
