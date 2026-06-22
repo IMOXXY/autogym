@@ -16,7 +16,7 @@ from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_excep
 BASE_URL = "http://order.njmu.edu.cn:8088/cgyd"
 SERVICE_ID = "41"
 TARGET_TIME_SLOT = "18:01-19:00"
-OPEN_DAYS = {1, 2, 3, 4, 7}
+OPEN_DAYS = {1, 2, 4, 5}
 
 logging.basicConfig(
     level=logging.INFO,
