@@ -106,7 +106,7 @@ def book(session: requests.Session, slot: dict) -> bool:
         data={"param": json.dumps(model), "num": "1", "json": "true"},
         timeout=15,
     )
-    log.debug("Booking HTTP %d, body: %s", resp.status_code, resp.text[:500])
+    log.warning("Booking HTTP %d, body: %s", resp.status_code, resp.text[:500])
     resp.raise_for_status()
     result = resp.json()
     if result.get("result") == "1":
